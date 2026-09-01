@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mysql-restcrud:
+    image: mysql:8.0
+    container_name: restcrud-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: CRUD_DB
+    ports:
+      - "3307:3306"
+    volumes:
+      - restcrud_mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot1234"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  restcrud_mysql_data:

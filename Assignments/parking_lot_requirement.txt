@@ -1,0 +1,114 @@
+Assignment 2 
+
+Parking Lot Management system 
+
+
+Requirements:
+
+addVehicle(vehicle)
+removeVehicle(vehicleNumber)
+parkVehicle(vehicle)
+unparkVehicle(vehicleNumber)
+getAvailableSpots()
+getVehicleDetails(vehicleNumber)
+
+
+
+Vehicle:
+
+{
+    vehicleNumber: "PB10AB1234",
+    type: "car"
+}
+
+
+Vehicle Types
+
+car
+bike
+truck
+
+
+
+Rules:
+
+Bike can use bike spot.
+Car can use car spot.
+Truck needs truck spot.
+Generate parking ticket.
+Calculate fee based on hours.
+Maintain parking history.
+
+
+
+
+Ticket
+
+When a vehicle is parked, generate:
+
+ticketId
+vehicleNumber
+vehicleType
+spotNumber
+entryTime
+
+
+
+Fee
+
+Example rates:
+
+Bike  → ₹20/hour
+Car   → ₹50/hour
+Truck → ₹100/hour
+
+Partial hours are rounded up.
+
+
+History
+
+After unparking, maintain:
+
+ticketId
+vehicleNumber
+vehicleType
+spotNumber
+entryTime
+exitTime
+duration
+fee
+
+
+
+Error handling
+
+Handle:
+
+Invalid vehicle type
+Duplicate vehicle
+Vehicle not found
+Vehicle already parked
+Vehicle not parked
+No available parking spot
+
+
+
+What interviewer tests:
+
+Class
+Array
+Object
+Searching
+Filtering
+Business logic
+
+
+
+
+
+
+
+
+
+
+

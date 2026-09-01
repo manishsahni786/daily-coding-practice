@@ -1,0 +1,77 @@
+// Server setup express js and db setup mysql 
+
+to inlize all the pakcages json app.js or index.js
+npm init -y
+npm i express dotenv
+
+
+// db setup with mysql with prisma 
+
+
+
+// I have created databse on docker contianer which is ruiing on port 3307
+
+Docker Container CREDS MySQL
+
+MYSQL_ROOT_PASSWORD: root1234
+MYSQL_DATABASE: CRUD_DB
+
+
+DATABASE_URL="mysql://root:root1234@localhost:3307/CRUD_DB"
+
+In SQLTools, use:
+
+Host: localhost
+Port: 3307
+Database: CRUD_DB
+Username: root
+Password: root1234
+
+
+
+REST_CRUD was added to your settings!
+Review JSON Syntax
+{
+  "mysqlOptions": {
+    "authProtocol": "default",
+    "enableSsl": "Disabled"
+  },
+  "ssh": "Disabled",
+  "previewLimit": 50,
+  "server": "localhost",
+  "port": 3307,
+  "driver": "MySQL",
+  "name": "REST_CRUD",
+  "database": "CRUD_DB",
+  "username": "root",
+  "password": "root1234"
+}
+
+
+
+// Need to Setup Authenication Routes, Models, controller, services, asyncHandler, errConstants, authMiddleware
+
+routes signup, login
+
+models 
+
+
+
+user model keys
+
+Name  String, required
+Email String, required, unique
+Password String, required
+
+
+Joi Validaiton for user model
+
+Name --> shoule be stringRequired
+email --> shoule be stringRequired 
+Password --> shoule be string, max chars of 10 charcters
+
+
+
+authMiddleware
+
+param user

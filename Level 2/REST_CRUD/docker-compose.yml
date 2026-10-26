@@ -1,22 +1,40 @@
-version: '3.8'
-
 services:
   mysql-restcrud:
     image: mysql:8.0
     container_name: restcrud-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root1234
-      MYSQL_DATABASE: CRUD_DB
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD must be set in .env}
+      MYSQL_DATABASE: ${DB_NAME:?DB_NAME must be set in .env}
     ports:
-      - "3307:3306"
+      - "127.0.0.1:${DB_PORT:-3307}:3306"   # host access for Prisma/Workbench, localhost only
     volumes:
       - restcrud_mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot1234"]
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD"]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: restcrud-api
+    restart: unless-stopped
+    env_file: .env                # JWT_SECRET, JWT_EXPIRES_IN, etc. go in as-is
+    environment:
+      # these OVERRIDE the localhost values from .env, which are wrong inside a container
+      DB_HOST: mysql-restcrud
+      DB_PORT: 3306
+      DATABASE_URL: mysql://${DB_USER}:${DB_PASSWORD}@mysql-restcrud:3306/${DB_NAME}
+      HOST: 0.0.0.0
+      PORT: 2000
+    ports:
+      - "127.0.0.1:${PORT:-2000}:2000"
+    depends_on:
+      mysql-restcrud:
+        condition: service_healthy
 
 volumes:
   restcrud_mysql_data:

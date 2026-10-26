@@ -1,0 +1,17 @@
+FROM node:20-slim
+
+# Prisma needs openssl
+RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# copy dependency files first so Docker caches this layer
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npx prisma generate
+
+ENV NODE_ENV=production
+EXPOSE 2000
+CMD ["node", "app.js"]

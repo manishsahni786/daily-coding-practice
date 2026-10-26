@@ -1,0 +1,14 @@
+
+name: Windows Runner Test
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: [self-hosted, Windows, X64]
+    steps:
+      - run: echo Runner is working!

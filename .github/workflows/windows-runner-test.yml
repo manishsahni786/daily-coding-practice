@@ -4,7 +4,7 @@ name: Test My Windows Server
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 permissions:
@@ -23,7 +23,5 @@ jobs:
         run: |
           Write-Host "My laptop is running this GitHub Actions job!"
           Write-Host "Computer name: $env:COMPUTERNAME"
-          Write-Host "Current date:"
           Get-Date
-          Write-Host "Git version:"
           git --version
